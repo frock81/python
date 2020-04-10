@@ -143,7 +143,6 @@ job:
     - prune_jobs
     - prune_files
     - prune_volumes
-    - run_script
     - run_before_job
     - run_after_job
     - run_after_failed_job

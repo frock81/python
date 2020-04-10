@@ -1,9 +1,9 @@
 ---
 # Defaults:
-#   Required: False
-#   Single: True
-#   Subkeys: OMIT
-#   Type: keyvalue (allowe are 'resource', 'keyvalue' and 'messages')
+#   type: keyvalue (allowe are 'resource', 'keyvalue' and 'messages')
+#   required: False
+#   single: True
+#   subkeys: OMIT
 director:
   required: True
   type: resource
@@ -53,5 +53,204 @@ client:
     auto_prune: {}
     maximum_concurrent_jobs: {}
     priority: {}
-
-
+storage:
+  single: False
+  type: resource
+  subkeys:
+    name: {required: True}
+    address: {required: True}
+    password: {required: True}
+    device: {required: True}
+    media_type: {required: True}
+    enabled: {}
+    fd_storage: {}
+    sd_port: {}
+    autochanger: {}
+    maximum_concurrent_jobs: {}
+    maximum_concurrent_read_jobs: {}
+    allow_compression: {}
+    heartbeat_interval: {}
+pool:
+  single: False
+  type: resource
+  subkeys:
+    name: {required: True}
+    pool_type: {required: True}
+    recycle: {}
+    auto_prune: {}
+    volume_retention: {}
+    maximum_volumes: {}
+    maximum_volume_bytes: {}
+    use_volume_once: {}
+    label_format: {}
+    heartbeat_interval: {}
+console:
+  type: resource
+  subkeys:
+    name: {required: True}
+    password: {required: True}
+    job_acl: {}
+    client_acl: {}
+    storage_acl: {}
+    schedule_acl: {}
+    pool_acl: {}
+    file_set_acl: {}
+    catalog_acl: {}
+    command_acl: {}
+    where_acl: {}
+job:
+  required: True
+  single: False
+  type: resource
+  subkeys:
+    name: {required: True}
+    client: {}
+    file_set: {}
+    messages: {}
+    pool: {}
+    type: {}
+    accurate: {}
+    verify_job: {}
+    job_defs: {}
+    bootstrap: {}
+    write_bootstrap: {}
+    base: {}
+    snapshot_retention: {}
+    full_backup_pool: {}
+    differential_backup_pool: {}
+    incremental_backup_pool: {}
+    backups_to_keep: {}
+    delete_consolidated_jobs: {}
+    schedule: {}
+    storage: {}
+    max_start_delay: {}
+    max_run_time: {}
+    incremental_max_run_time: {}
+    differential_max_wait_time: {}
+    max_run_sched_time: {}
+    max_wait_time: {}
+    max_spawned_jobs: {}
+    maximum_bandwidth: {}
+    max_full_interval: {}
+    prefer_mounted_volumes: {}
+    prune_jobs: {}
+    prune_files: {}
+    prune_volumes: {}
+    run_script:
+      required: False
+      type: resource
+      single: False
+      subkeys:
+        runs_on_sucess: {}
+        runs_on_failure: {}
+        runs_on_client: {}
+        runs_when: {}
+        fail_job_on_error: {}
+        command: {}
+        console: {}
+    run_before_job: {}
+    run_after_job: {}
+    run_after_failed_job: {}
+    client_run_before_job: {}
+    clien_run_after_job: {}
+    rerun_failed_levels: {}
+    spool_data: {}
+    spool_attributes: {}
+    spool_size: {}
+    where: {}
+    add_prefix: {}
+    add_suffix: {}
+    strip_prefix: {}
+    regex_where: {}
+    replace: {}
+    prefix_links: {}
+    maximum_concurrent_jobs: {}
+    reschedule_on_error: {}
+    reschedule_incomplete_jobs: {}
+    reschedule_interval: {}
+    allow_duplicate_jobs: {}
+    allow_higher_duplicates: {}
+    cancel_lower_level_duplicates: {}
+    cancel_queued_duplicates: {}
+    cancel_running_duplicates: {}
+    run:
+      single: False
+    priority: {}
+    allow_mixed_priority: {}
+job_defs:
+  single: False
+  type: resource
+  subkeys:
+    name: {required: True}
+    client: {}
+    file_set: {}
+    messages: {}
+    pool: {}
+    type: {}
+    accurate: {}
+    verify_job: {}
+    bootstrap: {}
+    write_bootstrap: {}
+    base: {}
+    snapshot_retention: {}
+    full_backup_pool: {}
+    differential_backup_pool: {}
+    incremental_backup_pool: {}
+    backups_to_keep: {}
+    delete_consolidated_jobs: {}
+    schedule: {}
+    storage: {}
+    max_start_delay: {}
+    max_run_time: {}
+    incremental_max_run_time: {}
+    differential_max_wait_time: {}
+    max_run_sched_time: {}
+    max_wait_time: {}
+    max_spawned_jobs: {}
+    maximum_bandwidth: {}
+    max_full_interval: {}
+    prefer_mounted_volumes: {}
+    prune_jobs: {}
+    prune_files: {}
+    prune_volumes: {}
+    run_script:
+      required: False
+      type: resource
+      single: False
+      subkeys:
+        runs_on_sucess: {}
+        runs_on_failure: {}
+        runs_on_client: {}
+        runs_when: {}
+        fail_job_on_error: {}
+        command: {}
+        console: {}
+    run_before_job: {}
+    run_after_job: {}
+    run_after_failed_job: {}
+    client_run_before_job: {}
+    clien_run_after_job: {}
+    rerun_failed_levels: {}
+    spool_data: {}
+    spool_attributes: {}
+    spool_size: {}
+    where: {}
+    add_prefix: {}
+    add_suffix: {}
+    strip_prefix: {}
+    regex_where: {}
+    replace: {}
+    prefix_links: {}
+    maximum_concurrent_jobs: {}
+    reschedule_on_error: {}
+    reschedule_incomplete_jobs: {}
+    reschedule_interval: {}
+    allow_duplicate_jobs: {}
+    allow_higher_duplicates: {}
+    cancel_lower_level_duplicates: {}
+    cancel_queued_duplicates: {}
+    cancel_running_duplicates: {}
+    run:
+      single: False
+    priority: {}
+    allow_mixed_priority: {}
