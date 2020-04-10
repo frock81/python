@@ -1,0 +1,38 @@
+---
+# daemon-var = spei_bacula___client_config
+# 'single' when not defined defaults to 'no'
+# 'mandatory' when not defined defaults to 'yes'
+#
+# The default config file that comes with bacula has a plugin_directory
+# keyword inside FileDaemon that do not appear in the docs. Will put it
+# here since it won't hurt.
+
+# client (FileDaemon)
+client:
+  single: yes
+  required:
+    - name
+    - working_directory
+    - pid_directory
+  optional:
+    - heartbeat_interval
+    - maximum_concurrent_jobs
+    - fd_addresses
+    - fd_port
+    - fd_address
+    - fd_source_address
+    - sd_connection_timeout
+    - maximum_network_buffer_size
+    - maximum_bandwidth_per_job
+    - pki_encryption
+    - pki_signatures
+    - pki_keypair
+    - pki_master_key
+    - plugin_directory
+director:
+  required:
+    - name
+    - password
+  optional:
+    - maximum_bandwidth_per_job
+    - monitor

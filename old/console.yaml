@@ -1,0 +1,18 @@
+---
+# daemon-var = spei_bacula___console_config
+# 'single' when not defined defaults to 'no'
+# 'mandatory' when not defined defaults to 'yes'
+
+director:
+  required:
+    - name
+    - password
+    - address
+  optional:
+    - dir_port
+console_font:
+  single: yes
+  mandatory: no
+  required:
+    - name
+    - font

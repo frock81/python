@@ -1,0 +1,57 @@
+---
+# Defaults:
+#   Required: False
+#   Single: True
+#   Subkeys: OMIT
+#   Type: keyvalue (allowe are 'resource', 'keyvalue' and 'messages')
+director:
+  required: True
+  type: resource
+  subkeys:
+    name: {required: True}
+    password: {required: True}
+    messages: {required: True}
+    working_directory: {required: True}
+    pid_directory: {required: True}
+    query_file: {required: True}
+    description: {}
+    scripts_directory: {}
+    heartbeat_interval: {}
+    maximum_concurrent_jobs: {}
+    fd_connect_timeout: {}
+    sd_connect_timeout: {}
+    dir_addresses: {}
+    dir_port: {}
+    dir_address: {}
+    dir_source_address: {}
+    statistics_retention: {}
+    ver_id: {}
+    maximum_console_connections: {}
+    maximum_reload_requests: {}
+catalog:
+  required: True
+  type: resource
+  subkeys:
+    name: {required: True}
+    db_name: {required: True}
+    db_user: {required: True}
+    db_password: {required: True}
+    db_socket: {}
+    db_address: {}
+    db_port: {}
+client:
+  single: False
+  type: resource
+  subkeys:
+    name: {requirede: True}
+    address: {requirede: True}
+    catalog: {requirede: True}
+    password: {requirede: True}
+    fd_port: {}
+    file_retention: {}
+    job_retention: {}
+    auto_prune: {}
+    maximum_concurrent_jobs: {}
+    priority: {}
+
+

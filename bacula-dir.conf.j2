@@ -1,0 +1,739 @@
+#jinja2: trim_blocks: True, lstrip_blocks: True
+# Bacula Director Configuration File
+#
+# The order in which the resources and directives appears are equal to how they
+# appear in the Bacula docs, with required keywords appearing first.
+
+#===============================================================================
+# Director Section
+#===============================================================================
+Director {
+    Name = {{ spei_bacula___director_config.director.name }}
+    Password = {{ spei_bacula___director_config.director.password }}
+    Messages = {{ spei_bacula___director_config.director.messages }}
+    Working Directory = {{ spei_bacula___director_config.director.working_directory }}
+    Pid Directory = {{ spei_bacula___director_config.director.pid_directory }}
+    Query File = {{ spei_bacula___director_config.director.query_file }}
+{% if spei_bacula___director_config.director.description is defined %}
+    Description = {{ spei_bacula___director_config.director.description }}
+{% endif %}
+{% if spei_bacula___director_config.director.scripts_directory is defined %}
+    Scripts Directory = {{ spei_bacula___director_config.director.scripts_directory }}
+{% endif %}
+{% if spei_bacula___director_config.director.heartbeat_interval is defined %}
+    Heartbeat Interval = {{ spei_bacula___director_config.director.heartbeat_interval }}
+{% endif %}
+{% if spei_bacula___director_config.director.maximum_concurrent_jobs is defined %}
+    Maximum Concurrent Jobs = {{ spei_bacula___director_config.director.maximum_concurrent_jobs }}
+{% endif %}
+{% if spei_bacula___director_config.director.fd_connect_timeout is defined %}
+    Fd Connect Timeout = {{ spei_bacula___director_config.director.fd_connect_timeout }}
+{% endif %}
+{% if spei_bacula___director_config.director.sd_connect_timeout is defined %}
+    Sd Connect Timeout = {{ spei_bacula___director_config.director.sd_connect_timeout }}
+{% endif %}
+{% if spei_bacula___director_config.director.dir_addresses is defined %}
+    Dir Addresses = {{ spei_bacula___director_config.director.dir_addresses }}
+{% endif %}
+{% if spei_bacula___director_config.director.dir_port is defined %}
+    Dir Port = {{ spei_bacula___director_config.director.dir_port }}
+{% endif %}
+{% if spei_bacula___director_config.director.dir_address is defined %}
+    Dir Address = {{ spei_bacula___director_config.director.dir_address }}
+{% endif %}
+{% if spei_bacula___director_config.director.dir_source_address is defined %}
+    Dir Source Address = {{ spei_bacula___director_config.director.dir_source_address }}
+{% endif %}
+{% if spei_bacula___director_config.director.statistics_retention is defined %}
+    Statistics Retention = {{ spei_bacula___director_config.director.statistics_retention }}
+{% endif %}
+{% if spei_bacula___director_config.director.ver_id is defined %}
+    Ver Id = {{ spei_bacula___director_config.director.ver_id }}
+{% endif %}
+{% if spei_bacula___director_config.director.maximum_console_connections is defined %}
+    Maximum Console Connections = {{ spei_bacula___director_config.director.maximum_console_connections }}
+{% endif %}
+{% if spei_bacula___director_config.director.maximum_reload_requests is defined %}
+    Maximum Reload Requests = {{ spei_bacula___director_config.director.maximum_reload_requests }}
+{% endif %}
+}
+
+#===============================================================================
+# Catalog Section
+#===============================================================================
+Catalog {
+    Name = {{ spei_bacula___director_config.catalog.name }}
+    Db Name = {{ spei_bacula___director_config.catalog.db_name }}
+    Db User = {{ spei_bacula___director_config.catalog.db_user }}
+    Db Password = {{ spei_bacula___director_config.catalog.db_password }}
+{% if spei_bacula___director_config.catalog.db_socket is defined %}
+    Db Socket = {{ spei_bacula___director_config.catalog.db_socket }}
+{% endif %}
+{% if spei_bacula___director_config.catalog.db_address is defined %}
+    Db Address = {{ spei_bacula___director_config.catalog.db_address }}
+{% endif %}
+{% if spei_bacula___director_config.catalog.db_port is defined %}
+    Db Port = {{ spei_bacula___director_config.catalog.db_port }}
+{% endif %}
+}
+
+#===============================================================================
+# Clients Section
+#===============================================================================
+{% for client in spei_bacula___director_config.clients %}
+Client {
+    Name = {{ client.name }}
+    Address = {{ client.address }}
+    Catalog = {{ client.catalog }}
+    Password = {{ client.password }}
+  {% if client.fd_port is defined %}
+    Fd Port = {{ client.fd_port }}
+  {% endif %}
+  {% if client.file_retention is defined %}
+    File Retention = {{ client.file_retention }}
+  {% endif %}
+  {% if client.job_retention is defined %}
+    Job Retention = {{ client.job_retention }}
+  {% endif %}
+  {% if client.auto_prune is defined %}
+    Auto Prune = {{ client.auto_prune }}
+  {% endif %}
+  {% if client.maximum_concurrent_jobs is defined %}
+    Maximum Concurrent Jobs = {{ client.maximum_concurrent_jobs }}
+  {% endif %}
+  {% if client.priority is defined %}
+    Priority = {{ client.priority }}
+  {% endif %}
+}
+
+{% endfor %}
+#===============================================================================
+# Storages Section
+#===============================================================================
+{% if spei_bacula___director_config.storages is defined %}
+  {% for storage in spei_bacula___director_config.storages %}
+Storage {
+    Name = {{ storage.name }}
+    Address = {{ storage.address }}
+    Password = {{ storage.password }}
+    Device = {{ storage.device }}
+    Media Type = {{ storage.media_type }}
+    {% if storage.enabled is defined %}
+    Enabled = {{ storage.enabled }}
+    {% endif %}
+    {% if storage.fd_storage is defined %}
+    Fd Storage = {{ storage.fd_storage }}
+    {% endif %}
+    {% if storage.sd_port is defined %}
+    Sd Port = {{ storage.sd_port }}
+    {% endif %}
+    {% if storage.autochanger is defined %}
+    Autochanger = {{ storage.autochanger }}
+    {% endif %}
+    {% if storage.maximum_concurrent_jobs is defined %}
+    Maximum Concurrent Jobs = {{ storage.maximum_concurrent_jobs }}
+    {% endif %}
+    {% if storage.maximum_concurrent_read_jobs is defined %}
+    Maximum Concurrent Read Jobs = {{ storage.maximum_concurrent_read_jobs }}
+    {% endif %}
+    {% if storage.allow_compression is defined %}
+    Allow Compression = {{ storage.allow_compression }}
+    {% endif %}
+    {% if storage.heartbeat_interval is defined %}
+    Heartbeat Interval = {{ storage.heartbeat_interval }}
+    {% endif %}
+}
+
+  {% endfor %}
+{% endif %}
+#===============================================================================
+# Pools Section
+#===============================================================================
+{% if spei_bacula___director_config.pools is defined %}
+  {% for pool in spei_bacula___director_config.pools %}
+Pool {
+    Name = {{ pool.name }}
+    Pool Type = {{ pool.pool_type }}
+    {% if pool.recycle is defined %}
+    Recycle = {{ pool.recycle }}
+    {% endif %}
+    {% if pool.auto_prune is defined %}
+    Auto Prune = {{ pool.auto_prune }}
+    {% endif %}
+    {% if pool.volume_retention is defined %}
+    Volume Retention = {{ pool.volume_retention }}
+    {% endif %}
+    {% if pool.maximum_volumes is defined %}
+    Maximum Volumes = {{ pool.maximum_volumes }}
+    {% endif %}
+    {% if pool.maximum_volume_bytes is defined %}
+    Maximum Volume Bytes = {{ pool.maximum_volume_bytes }}
+    {% endif %}
+    {% if pool.use_volume_once is defined %}
+    Use Volume Once = {{ pool.use_volume_once }}
+    {% endif %}
+    {% if pool.label_format is defined %}
+    Label Format = {{ pool.label_format }}
+    {% endif %}
+    {% if pool.heartbeat_interval is defined %}
+    Heartbeat Interval = {{ pool.heartbeat_interval }}
+    {% endif %}
+}
+
+  {% endfor %}
+{% endif %}
+#===============================================================================
+# Consoles Section
+#===============================================================================
+{% if spei_bacula___director_config.consoles is defined %}
+  {% for console in spei_bacula___director_config.consoles %}
+Console {
+    Name = {{ console.name }}
+    Password = {{ console.password }}
+    {% if console.job_acl is defined %}
+    Job Acl = {{ console.job_acl }}
+    {% endif %}
+    {% if console.client_acl is defined %}
+    Client Acl = {{ console.client_acl }}
+    {% endif %}
+    {% if console.storage_acl is defined %}
+    Storage Acl = {{ console.storage_acl }}
+    {% endif %}
+    {% if console.schedule_acl is defined %}
+    Schedule Acl = {{ console.schedule_acl }}
+    {% endif %}
+    {% if console.pool_acl is defined %}
+    Pool Acl = {{ console.pool_acl }}
+    {% endif %}
+    {% if console.file_set_acl is defined %}
+    File Set Acl = {{ console.file_set_acl }}
+    {% endif %}
+    {% if console.catalog_acl is defined %}
+    Catalog Acl = {{ console.catalog_acl }}
+    {% endif %}
+    {% if console.command_acl is defined %}
+    Command Acl = {{ console.command_acl }}
+    {% endif %}
+    {% if console.where_acl is defined %}
+    Where Acl = {{ console.where_acl }}
+    {% endif %}
+}
+
+  {% endfor %}
+{% endif %}
+#===============================================================================
+# Jobs Section
+#===============================================================================
+{% for job in spei_bacula___director_config.jobs %}
+Job {
+    Name = {{ job.name }}
+  {% if job.client is defined %}
+    Client = {{ job.client }}
+  {% endif %}
+  {% if job.file_set is defined %}
+    File Set = {{ job.file_set }}
+  {% endif %}
+  {% if job.messages is defined %}
+    Messages = {{ job.messages }}
+  {% endif %}
+  {% if job.pool is defined %}
+    Pool = {{ job.pool }}
+  {% endif %}
+  {% if job.type is defined %}
+    Type = {{ job.type }}
+  {% endif %}
+  {% if job.accurate is defined %}
+    Accurate = {{ job.accurate }}
+  {% endif %}
+  {% if job.verify_job is defined %}
+    Verify Job = {{ job.verify_job }}
+  {% endif %}
+  {% if job.job_defs is defined %}
+    Job Defs = {{ job.job_defs }}
+  {% endif %}
+  {% if job.bootstrap is defined %}
+    Bootstrap = {{ job.bootstrap }}
+  {% endif %}
+  {% if job.write_bootstrap is defined %}
+    Write Bootstrap = {{ job.write_bootstrap }}
+  {% endif %}
+  {% if job.base is defined %}
+    Base = {{ job.base }}
+  {% endif %}
+  {% if job.snapshot_retention is defined %}
+    Snapshot Retention = {{ job.snapshot_retention }}
+  {% endif %}
+  {% if job.full_backup_pool is defined %}
+    Full Backup Pool = {{ job.full_backup_pool }}
+  {% endif %}
+  {% if job.differential_backup_pool is defined %}
+    Differential Backup Pool = {{ job.differential_backup_pool }}
+  {% endif %}
+  {% if job.incremental_backup_pool is defined %}
+    Incremental Backup Pool = {{ job.incremental_backup_pool }}
+  {% endif %}
+  {% if job.backups_to_keep is defined %}
+    Backups To Keep = {{ job.backups_to_keep }}
+  {% endif %}
+  {% if job.delete_consolidated_jobs is defined %}
+    Delete Consolidated Jobs = {{ job.delete_consolidated_jobs }}
+  {% endif %}
+  {% if job.schedule is defined %}
+    Schedule = {{ job.schedule }}
+  {% endif %}
+  {% if job.storage is defined %}
+    Storage = {{ job.storage }}
+  {% endif %}
+  {% if job.max_start_delay is defined %}
+    Max Start Delay = {{ job.max_start_delay }}
+  {% endif %}
+  {% if job.max_run_time is defined %}
+    Max Run Time = {{ job.max_run_time }}
+  {% endif %}
+  {% if job.incremental_max_run_time is defined %}
+    Incremental Max Run Time = {{ job.incremental_max_run_time }}
+  {% endif %}
+  {% if job.differential_max_wait_time is defined %}
+    Differential Max Wait Time = {{ job.differential_max_wait_time }}
+  {% endif %}
+  {% if job.max_run_sched_time is defined %}
+    Max Run Sched Time = {{ job.max_run_sched_time }}
+  {% endif %}
+  {% if job.max_wait_time is defined %}
+    Max Wait Time = {{ job.max_wait_time }}
+  {% endif %}
+  {% if job.max_spawned_jobs is defined %}
+    Max Spawned Jobs = {{ job.max_spawned_jobs }}
+  {% endif %}
+  {% if job.maximum_bandwidth is defined %}
+    Maximum Bandwidth = {{ job.maximum_bandwidth }}
+  {% endif %}
+  {% if job.max_full_interval is defined %}
+    Max Full Interval = {{ job.max_full_interval }}
+  {% endif %}
+  {% if job.prefer_mounted_volumes is defined %}
+    Prefer Mounted Volumes = {{ job.prefer_mounted_volumes }}
+  {% endif %}
+  {% if job.prune_jobs is defined %}
+    Prune Jobs = {{ job.prune_jobs }}
+  {% endif %}
+  {% if job.prune_files is defined %}
+    Prune Files = {{ job.prune_files }}
+  {% endif %}
+  {% if job.prune_volumes is defined %}
+    Prune Volumes = {{ job.prune_volumes }}
+  {% endif %}
+  {% if job.run_script is defined %}
+    Run Script = {{ job.run_script }}
+  {% endif %}
+  {% if job.run_before_job is defined %}
+    Run Before Job = {{ job.run_before_job }}
+  {% endif %}
+  {% if job.run_after_job is defined %}
+    Run After Job = {{ job.run_after_job }}
+  {% endif %}
+  {% if job.run_after_failed_job is defined %}
+    Run After Failed Job = {{ job.run_after_failed_job }}
+  {% endif %}
+  {% if job.client_run_before_job is defined %}
+    Client Run Before Job = {{ job.client_run_before_job }}
+  {% endif %}
+  {% if job.clien_run_after_job is defined %}
+    Clien Run After Job = {{ job.clien_run_after_job }}
+  {% endif %}
+  {% if job.rerun_failed_levels is defined %}
+    Rerun Failed Levels = {{ job.rerun_failed_levels }}
+  {% endif %}
+  {% if job.spool_data is defined %}
+    Spool Data = {{ job.spool_data }}
+  {% endif %}
+  {% if job.spool_attributes is defined %}
+    Spool Attributes = {{ job.spool_attributes }}
+  {% endif %}
+  {% if job.spool_size is defined %}
+    Spool Size = {{ job.spool_size }}
+  {% endif %}
+  {% if job.where is defined %}
+    Where = {{ job.where }}
+  {% endif %}
+  {% if job.add_prefix is defined %}
+    Add Prefix = {{ job.add_prefix }}
+  {% endif %}
+  {% if job.add_suffix is defined %}
+    Add Suffix = {{ job.add_suffix }}
+  {% endif %}
+  {% if job.strip_prefix is defined %}
+    Strip Prefix = {{ job.strip_prefix }}
+  {% endif %}
+  {% if job.regex_where is defined %}
+    Regex Where = {{ job.regex_where }}
+  {% endif %}
+  {% if job.replace is defined %}
+    Replace = {{ job.replace }}
+  {% endif %}
+  {% if job.prefix_links is defined %}
+    Prefix Links = {{ job.prefix_links }}
+  {% endif %}
+  {% if job.maximum_concurrent_jobs is defined %}
+    Maximum Concurrent Jobs = {{ job.maximum_concurrent_jobs }}
+  {% endif %}
+  {% if job.reschedule_on_error is defined %}
+    Reschedule On Error = {{ job.reschedule_on_error }}
+  {% endif %}
+  {% if job.reschedule_incomplete_jobs is defined %}
+    Reschedule Incomplete Jobs = {{ job.reschedule_incomplete_jobs }}
+  {% endif %}
+  {% if job.reschedule_interval is defined %}
+    Reschedule Interval = {{ job.reschedule_interval }}
+  {% endif %}
+  {% if job.allow_duplicate_jobs is defined %}
+    Allow Duplicate Jobs = {{ job.allow_duplicate_jobs }}
+  {% endif %}
+  {% if job.allow_higher_duplicates is defined %}
+    Allow Higher Duplicates = {{ job.allow_higher_duplicates }}
+  {% endif %}
+  {% if job.cancel_lower_level_duplicates is defined %}
+    Cancel Lower Level Duplicates = {{ job.cancel_lower_level_duplicates }}
+  {% endif %}
+  {% if job.cancel_queued_duplicates is defined %}
+    Cancel Queued Duplicates = {{ job.cancel_queued_duplicates }}
+  {% endif %}
+  {% if job.cancel_running_duplicates is defined %}
+    Cancel Running Duplicates = {{ job.cancel_running_duplicates }}
+  {% endif %}
+  {% if job.run is defined %}
+    Run = {{ job.run }}
+  {% endif %}
+  {% if job.priority is defined %}
+    Priority = {{ job.priority }}
+  {% endif %}
+  {% if job.allow_mixed_priority is defined %}
+    Allow Mixed Priority = {{ job.allow_mixed_priority }}
+  {% endif %}
+  {% if job.run_scripts is defined %}
+    {% for run_script in job.run_scripts %}
+    RunScript {
+      {% if run_script.runs_on_success is defined %}
+        Runs On Success = {{ run_script.runs_on_success }}
+      {% endif %}
+      {% if run_script.runs_on_failure is defined %}
+        Runs On Failure = {{ run_script.runs_on_failure }}
+      {% endif %}
+      {% if run_script.runs_on_client is defined %}
+        Runs On Client = {{ run_script.runs_on_client }}
+      {% endif %}
+      {% if run_script.runs_when is defined %}
+        Runs When = {{ run_script.runs_when }}
+      {% endif %}
+      {% if run_script.fail_job_on_error is defined %}
+        Fail Job On Error = {{ run_script.fail_job_on_error }}
+      {% endif %}
+      {% if run_script.command is defined %}
+        Command = {{ run_script.command }}
+      {% endif %}
+      {% if run_script.console is defined %}
+        Console = {{ run_script.console }}
+      {% endif %}
+    }
+    {% endfor %}
+  {% endif %}
+}
+
+{% endfor %}
+#===============================================================================
+# Job Defss Section
+#===============================================================================
+{% if spei_bacula___director_config.job_defss is defined %}
+  {% for job_defs in spei_bacula___director_config.job_defss %}
+JobDefs {
+    Name = {{ job_defs.name }}
+    {% if job_defs.type is defined %}
+    Type = {{ job_defs.type }}
+    {% endif %}
+    {% if job_defs.client is defined %}
+    Client = {{ job_defs.client }}
+    {% endif %}
+    {% if job_defs.file_set is defined %}
+    File Set = {{ job_defs.file_set }}
+    {% endif %}
+    {% if job_defs.messages is defined %}
+    Messages = {{ job_defs.messages }}
+    {% endif %}
+    {% if job_defs.pool is defined %}
+    Pool = {{ job_defs.pool }}
+    {% endif %}
+    {% if job_defs.accurate is defined %}
+    Accurate = {{ job_defs.accurate }}
+    {% endif %}
+    {% if job_defs.verify_job is defined %}
+    Verify Job = {{ job_defs.verify_job }}
+    {% endif %}
+    {% if job_defs.bootstrap is defined %}
+    Bootstrap = {{ job_defs.bootstrap }}
+    {% endif %}
+    {% if job_defs.write_bootstrap is defined %}
+    Write Bootstrap = {{ job_defs.write_bootstrap }}
+    {% endif %}
+    {% if job_defs.base is defined %}
+    Base = {{ job_defs.base }}
+    {% endif %}
+    {% if job_defs.snapshot_retention is defined %}
+    Snapshot Retention = {{ job_defs.snapshot_retention }}
+    {% endif %}
+    {% if job_defs.full_backup_pool is defined %}
+    Full Backup Pool = {{ job_defs.full_backup_pool }}
+    {% endif %}
+    {% if job_defs.differential_backup_pool is defined %}
+    Differential Backup Pool = {{ job_defs.differential_backup_pool }}
+    {% endif %}
+    {% if job_defs.incremental_backup_pool is defined %}
+    Incremental Backup Pool = {{ job_defs.incremental_backup_pool }}
+    {% endif %}
+    {% if job_defs.backups_to_keep is defined %}
+    Backups To Keep = {{ job_defs.backups_to_keep }}
+    {% endif %}
+    {% if job_defs.delete_consolidated_jobs is defined %}
+    Delete Consolidated Jobs = {{ job_defs.delete_consolidated_jobs }}
+    {% endif %}
+    {% if job_defs.schedule is defined %}
+    Schedule = {{ job_defs.schedule }}
+    {% endif %}
+    {% if job_defs.storage is defined %}
+    Storage = {{ job_defs.storage }}
+    {% endif %}
+    {% if job_defs.max_start_delay is defined %}
+    Max Start Delay = {{ job_defs.max_start_delay }}
+    {% endif %}
+    {% if job_defs.max_run_time is defined %}
+    Max Run Time = {{ job_defs.max_run_time }}
+    {% endif %}
+    {% if job_defs.incremental_max_run_time is defined %}
+    Incremental Max Run Time = {{ job_defs.incremental_max_run_time }}
+    {% endif %}
+    {% if job_defs.differential_max_wait_time is defined %}
+    Differential Max Wait Time = {{ job_defs.differential_max_wait_time }}
+    {% endif %}
+    {% if job_defs.max_run_sched_time is defined %}
+    Max Run Sched Time = {{ job_defs.max_run_sched_time }}
+    {% endif %}
+    {% if job_defs.max_wait_time is defined %}
+    Max Wait Time = {{ job_defs.max_wait_time }}
+    {% endif %}
+    {% if job_defs.max_spawned_jobs is defined %}
+    Max Spawned Jobs = {{ job_defs.max_spawned_jobs }}
+    {% endif %}
+    {% if job_defs.maximum_bandwidth is defined %}
+    Maximum Bandwidth = {{ job_defs.maximum_bandwidth }}
+    {% endif %}
+    {% if job_defs.max_full_interval is defined %}
+    Max Full Interval = {{ job_defs.max_full_interval }}
+    {% endif %}
+    {% if job_defs.prefer_mounted_volumes is defined %}
+    Prefer Mounted Volumes = {{ job_defs.prefer_mounted_volumes }}
+    {% endif %}
+    {% if job_defs.prune_jobs is defined %}
+    Prune Jobs = {{ job_defs.prune_jobs }}
+    {% endif %}
+    {% if job_defs.prune_files is defined %}
+    Prune Files = {{ job_defs.prune_files }}
+    {% endif %}
+    {% if job_defs.prune_volumes is defined %}
+    Prune Volumes = {{ job_defs.prune_volumes }}
+    {% endif %}
+    {% if job_defs.run_script is defined %}
+    Run Script = {{ job_defs.run_script }}
+    {% endif %}
+    {% if job_defs.run_before_job is defined %}
+    Run Before Job = {{ job_defs.run_before_job }}
+    {% endif %}
+    {% if job_defs.run_after_job is defined %}
+    Run After Job = {{ job_defs.run_after_job }}
+    {% endif %}
+    {% if job_defs.run_after_failed_job is defined %}
+    Run After Failed Job = {{ job_defs.run_after_failed_job }}
+    {% endif %}
+    {% if job_defs.client_run_before_job is defined %}
+    Client Run Before Job = {{ job_defs.client_run_before_job }}
+    {% endif %}
+    {% if job_defs.clien_run_after_job is defined %}
+    Clien Run After Job = {{ job_defs.clien_run_after_job }}
+    {% endif %}
+    {% if job_defs.rerun_failed_levels is defined %}
+    Rerun Failed Levels = {{ job_defs.rerun_failed_levels }}
+    {% endif %}
+    {% if job_defs.spool_data is defined %}
+    Spool Data = {{ job_defs.spool_data }}
+    {% endif %}
+    {% if job_defs.spool_attributes is defined %}
+    Spool Attributes = {{ job_defs.spool_attributes }}
+    {% endif %}
+    {% if job_defs.spool_size is defined %}
+    Spool Size = {{ job_defs.spool_size }}
+    {% endif %}
+    {% if job_defs.where is defined %}
+    Where = {{ job_defs.where }}
+    {% endif %}
+    {% if job_defs.add_prefix is defined %}
+    Add Prefix = {{ job_defs.add_prefix }}
+    {% endif %}
+    {% if job_defs.add_suffix is defined %}
+    Add Suffix = {{ job_defs.add_suffix }}
+    {% endif %}
+    {% if job_defs.strip_prefix is defined %}
+    Strip Prefix = {{ job_defs.strip_prefix }}
+    {% endif %}
+    {% if job_defs.regex_where is defined %}
+    Regex Where = {{ job_defs.regex_where }}
+    {% endif %}
+    {% if job_defs.replace is defined %}
+    Replace = {{ job_defs.replace }}
+    {% endif %}
+    {% if job_defs.prefix_links is defined %}
+    Prefix Links = {{ job_defs.prefix_links }}
+    {% endif %}
+    {% if job_defs.maximum_concurrent_jobs is defined %}
+    Maximum Concurrent Jobs = {{ job_defs.maximum_concurrent_jobs }}
+    {% endif %}
+    {% if job_defs.reschedule_on_error is defined %}
+    Reschedule On Error = {{ job_defs.reschedule_on_error }}
+    {% endif %}
+    {% if job_defs.reschedule_incomplete_jobs is defined %}
+    Reschedule Incomplete Jobs = {{ job_defs.reschedule_incomplete_jobs }}
+    {% endif %}
+    {% if job_defs.reschedule_interval is defined %}
+    Reschedule Interval = {{ job_defs.reschedule_interval }}
+    {% endif %}
+    {% if job_defs.allow_duplicate_jobs is defined %}
+    Allow Duplicate Jobs = {{ job_defs.allow_duplicate_jobs }}
+    {% endif %}
+    {% if job_defs.allow_higher_duplicates is defined %}
+    Allow Higher Duplicates = {{ job_defs.allow_higher_duplicates }}
+    {% endif %}
+    {% if job_defs.cancel_lower_level_duplicates is defined %}
+    Cancel Lower Level Duplicates = {{ job_defs.cancel_lower_level_duplicates }}
+    {% endif %}
+    {% if job_defs.cancel_queued_duplicates is defined %}
+    Cancel Queued Duplicates = {{ job_defs.cancel_queued_duplicates }}
+    {% endif %}
+    {% if job_defs.cancel_running_duplicates is defined %}
+    Cancel Running Duplicates = {{ job_defs.cancel_running_duplicates }}
+    {% endif %}
+    {% if job_defs.run is defined %}
+    Run = {{ job_defs.run }}
+    {% endif %}
+    {% if job_defs.priority is defined %}
+    Priority = {{ job_defs.priority }}
+    {% endif %}
+    {% if job_defs.allow_mixed_priority is defined %}
+    Allow Mixed Priority = {{ job_defs.allow_mixed_priority }}
+    {% endif %}
+    {% if job_defs.run_scripts is defined %}
+      {% for run_script in job_defs.run_scripts %}
+    RunScript {
+        {% if run_script.runs_on_success is defined %}
+        Runs On Success = {{ run_script.runs_on_success }}
+        {% endif %}
+        {% if run_script.runs_on_failure is defined %}
+        Runs On Failure = {{ run_script.runs_on_failure }}
+        {% endif %}
+        {% if run_script.runs_on_client is defined %}
+        Runs On Client = {{ run_script.runs_on_client }}
+        {% endif %}
+        {% if run_script.runs_when is defined %}
+        Runs When = {{ run_script.runs_when }}
+        {% endif %}
+        {% if run_script.fail_job_on_error is defined %}
+        Fail Job On Error = {{ run_script.fail_job_on_error }}
+        {% endif %}
+        {% if run_script.command is defined %}
+        Command = {{ run_script.command }}
+        {% endif %}
+        {% if run_script.console is defined %}
+        Console = {{ run_script.console }}
+        {% endif %}
+    }
+      {% endfor %}
+    {% endif %}
+}
+
+  {% endfor %}
+{% endif %}
+#===============================================================================
+# Messages section
+#===============================================================================
+{% for message in spei_bacula___director_config.messages %}
+Messages {
+    Name = {{ message.name }}
+  {% if message.mail_command is defined %}
+    Mail Command = {{ message.mail_command }}
+  {% endif %}
+  {% if message.operator_command is defined %}
+    Operator Command = {{ message.operator_command }}
+  {% endif %}
+  {% if message.destinations is defined %}
+    {% for destination in message.destinations %}
+    {{ destination.dest }}{{ ' = ' + destination.address if destination.address is defined else '' }} = {{ destination.msg_types | join(', ') }}
+    {% endfor %}
+  {% endif %}
+}
+
+{% endfor %}
+
+#===============================================================================
+# Schedules section
+#===============================================================================
+{% if spei_bacula___director_config.schedules is defined %}
+  {% for schedule in spei_bacula___director_config.schedules %}
+Schedule {
+    Name = {{ schedule.name }}
+    {% for run in schedule.runs %}
+    Run = {{ run }}
+    {% endfor %}
+}
+
+  {% endfor %}
+{% endif %}
+
+#===============================================================================
+# FileSets section
+#===============================================================================
+{% if spei_bacula___director_config.file_sets is defined %}
+  {% for file_set in spei_bacula___director_config.file_sets %}
+FileSet {
+    Name = "{{ file_set.name }}"
+    {% if file_set.ignore_fileset_changes is defined %}
+    Ignore Fileset Changes = {{ file_set.ignore_fileset_changes }}
+    {% endif %}
+    {% if file_set.enable_vss is defined %}
+    Enable Vss = {{ file_set.enable_vss }}
+    {% endif %}
+    {% if file_set.include is defined %}
+    Include {
+      {% if file_set.include.options is defined %}
+        Options {
+          {% for key, value in file_set.include.options.items() %}
+            {{ key }} = {{ value }}
+          {% endfor %}
+        }
+      {% endif %}
+      {% if file_set.include.files is defined %}
+        {% for file in file_set.include.files %}
+        File = {{ file }}
+        {% endfor %}
+      {% endif %}
+    }
+    {% endif %}
+    {% if file_set.exclude is defined %}
+    Exclude {
+      {% if file_set.exclude.files is defined %}
+        {% for file in file_set.exclude.files %}
+        File = {{ file }}
+        {% endfor %}
+      {% endif %}
+    }
+    {% endif %}
+}
+
+  {% endfor %}
+{% endif %}
+

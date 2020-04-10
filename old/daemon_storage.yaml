@@ -1,0 +1,80 @@
+---
+# daemon-var = spei_bacula___storage_config
+# 'single' when not defined defaults to 'no'
+# 'mandatory' when not defined defaults to 'yes'
+
+storage:
+  single: yes
+  required:
+    - name
+    - working_directory
+    - pid_directory
+  optional:
+    - heartbeat_interval
+    - client_connect_wait
+    - maximum_concurrent_jobs
+    - sd_addresses
+    - sd_port
+    - sd_address
+director:
+  required:
+    - name
+    - password
+  optional:
+    - monitor
+device:
+  required:
+    - name
+    - archive_device
+    - media_type
+  optional:
+    - device_type
+    - autochanger
+    - changer_device
+    - changer_command
+    - alert_command
+    - drive_index
+    - autoselect
+    - maximum_concurrent_jobs
+    - maximum_changer_wait
+    - maximum_rewind_wait
+    - maximum_open_wait
+    - always_open
+    - volume_poll_interval
+    - close_on_poll
+    - removable_media
+    - random_access
+    - requires_mount
+    - mount_point
+    - mount_command
+    - unmount_command
+    - block_checksum
+    - minimum_block_size
+    - maximum_block_size
+    - hardware_end_of_medium
+    - fast_forward_space_file
+    - use_mtiocget
+    - bsm_at_eom
+    - two_eof
+    - backward_space_record
+    - backward_space_file
+    - forward_space_file
+    - offline_on_unmount
+    - maximum_concurrent_jobs
+    - maximum_volume_size
+    - maximum_file_size
+    - block_positioning
+    - maximum_network_buffer_size
+    - maximum_spool_size
+    - maximum_job_spool_size
+    - spool_directory
+    - label_media
+    - automatic_mount
+autochanger:
+  mandatory: no
+  required:
+    - name
+    - device
+  optional:
+    - changer_device
+    - changer_command
