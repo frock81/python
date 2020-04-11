@@ -254,3 +254,91 @@ job_defs:
       single: False
     priority: {}
     allow_mixed_priority: {}
+messages:
+    type: resource
+    single: False
+    subkeys:
+        name: {required: True}
+        mail_command: {}
+        operator_command: {}
+        stdout: {}
+        stderr: {}
+        console: {}
+        director: {}
+        file: {}
+        append: {}
+        syslog: {}
+        mail: {}
+        mail_on_error: {}
+        mail_on_sucess: {}
+        operator: {}
+        catalog: {}
+schedules:
+    type: resource
+    single: False
+    subkeys:
+        name: {required: True}
+        run:
+            single: False
+fileset:
+    type: resource
+    single: False
+    subkeys:
+        name: {required: True}
+        ignore_fileset_changes: {}
+        enable_vss: {}
+        include:
+            required: True
+            single: False
+            type: resource
+            subkeys:
+                options:
+                    type: resource
+                    single: False
+                    subkeys:
+                        compression: {}
+                        signature: {}
+                        basejob: {}
+                        accurate: {}
+                        verify: {}
+                        onefs: {}
+                        honor_nodump_flag: {}
+                        portable: {}
+                        recurse: {}
+                        sparse: {}
+                        read_fifo: {}
+                        no_atime: {}
+                        mtime_only: {}
+                        keep_atime: {}
+                        check_file_changes: {}
+                        hardlinks: {}
+                        wild:
+                            single: False
+                        wild_dir:
+                            single: False
+                        wild_file:
+                            single: False
+                        regex:
+                            single: False
+                        regex_file:
+                            single: False
+                        regex_dir:
+                            single: False
+                        exclude: {}
+                        acl_support: {}
+                        xattrs_support: {}
+                        ignore_case: {}
+                        fs_type: {}
+                        drive_type: {}
+                        hfsplus_support: {}
+                        strip_path: {}
+                file:
+                    required: True
+                    single: False
+        exclude:
+            type: resource
+            single: False
+            subkeys:
+                file:
+                    required: True
+                    single: False
